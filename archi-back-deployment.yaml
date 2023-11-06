@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+spec:
+  replicas: 1  # Nombre de réplicas (pods) pour le backend
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - name: backend-container
+          image: acrinframono.azurecr.io/back-blog:latest  # Remplacez par l'image de votre backend
+          ports:
+            - containerPort: 3000  # Port sur lequel votre backend écoute
+      imagePullSecrets:
+        - name: mon-secret

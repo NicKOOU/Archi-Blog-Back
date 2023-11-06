@@ -5,7 +5,7 @@ const cors = require('cors');
 
 const app = express();
 app.use(cors());
-const port = 4000;
+const port = 3000;
 
 // Utilisation d'une base de données persistante
 const db = new sqlite3.Database('articles.db');
@@ -88,6 +88,16 @@ app.delete('/articles/:id', (req, res) => {
   });
 });
 
-app.listen(port, () => {
+app.post('/contacts', (req, res) => {
+  const { name, email, message } = req.body;
+  if (!name || !email || !message) {
+    res.status(400).json({ error: 'Name, email and message are required' });
+    return;
+  }
+  console.log(name, email, message);
+  res.json({ message: 'Message sent successfully' });
+});
+
+app.listen(port, "0.0.0.0", () => {
   console.log(`Server listening at http://localhost:${port}`);
 });
